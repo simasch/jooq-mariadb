@@ -1,5 +1,7 @@
 package ch.martinelli.sakila;
 
+import ch.martinelli.sakila.dto.ActorWithFilms;
+import ch.martinelli.sakila.dto.ActorWithFirstAndLastName;
 import ch.martinelli.sakila.tables.records.FilmRecord;
 import org.jooq.DSLContext;
 import org.jooq.Record2;

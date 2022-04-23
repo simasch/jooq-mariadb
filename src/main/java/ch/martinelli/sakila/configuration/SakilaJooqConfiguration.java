@@ -1,4 +1,4 @@
-package ch.martinelli.sakila;
+package ch.martinelli.sakila.configuration;
 
 import org.jooq.conf.RenderNameCase;
 import org.jooq.conf.RenderQuotedNames;

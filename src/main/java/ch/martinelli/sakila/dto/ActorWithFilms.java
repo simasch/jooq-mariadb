@@ -1,4 +1,4 @@
-package ch.martinelli.sakila;
+package ch.martinelli.sakila.dto;
 
 import java.util.List;
 

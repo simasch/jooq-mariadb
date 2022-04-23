@@ -1,4 +1,4 @@
-package ch.martinelli.sakila;
+package ch.martinelli.sakila.dto;
 
 public record ActorWithFirstAndLastName(String firstName, String lastName) {
 }
