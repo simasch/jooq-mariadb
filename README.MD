@@ -8,4 +8,4 @@ This image has the ROOT password and database configured with: **sakila**
 
 You can change the root password via environment variable: `MARIADB_ROOT_PASSWORD`.
 
-For more information about the sakila-db please, visit: [sakila-db](https://dev.mysql.com/doc/sakila/en/)
+For more information about the sakila database please, visit: [sakila](https://dev.mysql.com/doc/sakila/en/)
