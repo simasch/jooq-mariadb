@@ -1,6 +1,6 @@
-package ch.martinelli.jooq.quickstart;
+package ch.martinelli.sakila;
 
-import ch.martinelli.jooq.quickstart.database.tables.records.FilmRecord;
+import ch.martinelli.sakila.tables.records.FilmRecord;
 import org.jooq.DSLContext;
 import org.jooq.Record2;
 import org.jooq.Result;
@@ -11,18 +11,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static ch.martinelli.jooq.quickstart.database.tables.Actor.ACTOR;
-import static ch.martinelli.jooq.quickstart.database.tables.Category.CATEGORY;
-import static ch.martinelli.jooq.quickstart.database.tables.Film.FILM;
-import static ch.martinelli.jooq.quickstart.database.tables.FilmActor.FILM_ACTOR;
-import static ch.martinelli.jooq.quickstart.database.tables.FilmCategory.FILM_CATEGORY;
+import static ch.martinelli.sakila.tables.Actor.ACTOR;
+import static ch.martinelli.sakila.tables.Category.CATEGORY;
+import static ch.martinelli.sakila.tables.Film.FILM;
+import static ch.martinelli.sakila.tables.FilmActor.FILM_ACTOR;
+import static ch.martinelli.sakila.tables.FilmCategory.FILM_CATEGORY;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.jooq.Records.mapping;
 import static org.jooq.impl.DSL.multisetAgg;
 
 @Transactional
 @SpringBootTest
-class QueryTest {
+class JooqTest {
 
     @Autowired
     private DSLContext dsl;

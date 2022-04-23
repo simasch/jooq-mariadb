@@ -1,13 +1,13 @@
-package ch.martinelli.jooq.quickstart;
+package ch.martinelli.sakila;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JooqQuickstartApplication {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(JooqQuickstartApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 }

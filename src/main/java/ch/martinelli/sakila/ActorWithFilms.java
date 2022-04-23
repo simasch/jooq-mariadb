@@ -1,4 +1,4 @@
-package ch.martinelli.jooq.quickstart;
+package ch.martinelli.sakila;
 
 import java.util.List;
 
