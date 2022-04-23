@@ -1,4 +1,4 @@
-FROM mariadb:10.1.21
+FROM mariadb:10.7.3
 
 # Install curl, download the sakila db, and prepare the database
 RUN apt-get update && \
@@ -11,7 +11,9 @@ RUN apt-get update && \
     apt-get clean && apt-get autoclean
 
 # Root password
-ENV MYSQL_ROOT_PASSWORD sample
+ENV MARIADB_ROOT_PASSWORD sakila
+# Database
+ENV MARIADB_DATABASE sakila
 
-# Default MariaDB/MySQL port
+# Default MariaDB port
 EXPOSE 3306

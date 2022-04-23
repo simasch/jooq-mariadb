@@ -1,4 +1,5 @@
 # MariaDB Sakila Sample
+
 This image is a very simple MariaDB with the classic Sakila DB imported.
 
 **Important**: This image is only for testing and demonstration purpose. **Does NOT USE IN PRODUCTION!!!**
