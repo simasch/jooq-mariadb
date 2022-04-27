@@ -2,7 +2,6 @@ package ch.martinelli.sakila;
 
 import ch.martinelli.sakila.dto.ActorWithFilms;
 import ch.martinelli.sakila.dto.ActorWithFirstAndLastName;
-import ch.martinelli.sakila.routines.FilmNotInStock;
 import ch.martinelli.sakila.routines.GetCustomerBalance;
 import ch.martinelli.sakila.tables.records.FilmListRecord;
 import ch.martinelli.sakila.tables.records.FilmRecord;
@@ -12,6 +11,7 @@ import org.jooq.Result;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -25,6 +25,7 @@ import static ch.martinelli.sakila.tables.FilmActor.FILM_ACTOR;
 import static ch.martinelli.sakila.tables.FilmCategory.FILM_CATEGORY;
 import static ch.martinelli.sakila.tables.FilmList.FILM_LIST;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.jooq.Records.mapping;
 import static org.jooq.impl.DSL.multisetAgg;
 
@@ -37,9 +38,22 @@ class CrudTest {
 
     @Test
     void find_all_films() {
-        Result<FilmRecord> films = dsl.selectFrom(FILM).fetch();
+        Result<FilmRecord> films = dsl
+                .selectFrom(FILM)
+                .fetch();
 
-        assertThat(films.size()).isEqualTo(1000);
+        assertThat(films).hasSize(1000);
+    }
+
+    @Test
+    void find_film_by_id() {
+        FilmRecord filmRecord = dsl
+                .selectFrom(FILM)
+                .where(FILM.FILM_ID.eq(1))
+                .fetchOne();
+
+        assertThat(filmRecord).isNotNull();
+        assertThat(filmRecord.getTitle()).isEqualTo("ACADEMY DINOSAUR");
     }
 
     @Test
@@ -57,7 +71,7 @@ class CrudTest {
                 .fetch();
 
 
-        assertThat(actorsOfHorrorFilms.size()).isEqualTo(155);
+        assertThat(actorsOfHorrorFilms).hasSize(155);
     }
 
     @Test
@@ -71,11 +85,11 @@ class CrudTest {
                 .orderBy(FILM_ACTOR.actor().FIRST_NAME, FILM_ACTOR.actor().LAST_NAME)
                 .fetch();
 
-        assertThat(actorsOfHorrorFilms.size()).isEqualTo(155);
+        assertThat(actorsOfHorrorFilms).hasSize(155);
     }
 
     @Test
-    void find_all_actors_of_horror_films_implicit_join_into_record() {
+    void find_all_actors_of_horror_films_implicit_join_into_dto() {
         List<ActorWithFirstAndLastName> actorsOfHorrorFilms = dsl
                 .select(FILM_ACTOR.actor().FIRST_NAME, FILM_ACTOR.actor().LAST_NAME)
                 .from(FILM_ACTOR)
@@ -85,16 +99,16 @@ class CrudTest {
                 .orderBy(FILM_ACTOR.actor().FIRST_NAME, FILM_ACTOR.actor().LAST_NAME)
                 .fetchInto(ActorWithFirstAndLastName.class);
 
-        assertThat(actorsOfHorrorFilms.size()).isEqualTo(155);
+        assertThat(actorsOfHorrorFilms).hasSize(155);
     }
 
     @Test
-    void read_from_film_list_view() {
+    void fina_all_films_with_view() {
         Result<FilmListRecord> films = dsl
                 .selectFrom(FILM_LIST)
                 .fetch();
 
-        assertThat(films.size()).isEqualTo(997);
+        assertThat(films).hasSize(997);
     }
 
     @Test
@@ -119,14 +133,36 @@ class CrudTest {
     }
 
     @Test
-    void find_film() {
+    void update_film() {
+        int updatedRows = dsl.
+                update(FILM)
+                .set(FILM.RENTAL_RATE, new BigDecimal("10.00"))
+                .where(FILM.FILM_ID.eq(1))
+                .execute();
+
+        assertThat(updatedRows).isEqualTo(1);
+    }
+
+    @Test
+    void update_film_using_record() {
         FilmRecord filmRecord = dsl
                 .selectFrom(FILM)
                 .where(FILM.FILM_ID.eq(1))
                 .fetchOne();
 
-        assertThat(filmRecord).isNotNull();
-        assertThat(filmRecord.getTitle()).isEqualTo("ACADEMY DINOSAUR");
+        filmRecord.setRentalRate(new BigDecimal("10.00"));
+        int stored = filmRecord.store();
+
+        assertThat(stored).isEqualTo(1);
+    }
+
+    @Test
+    void delete_film() {
+        assertThatThrownBy(() -> dsl
+                .deleteFrom(FILM)
+                .where(FILM.FILM_ID.eq(1))
+                .execute())
+                .isInstanceOf(DataIntegrityViolationException.class);
     }
 
     @Test
@@ -155,6 +191,6 @@ class CrudTest {
                 .groupBy(ACTOR.ACTOR_ID, ACTOR.FIRST_NAME, ACTOR.LAST_NAME)
                 .fetch(mapping(ActorWithFilms::new));
 
-        assertThat(actorWithFilms.size()).isEqualTo(200);
+        assertThat(actorWithFilms).hasSize(200);
     }
 }

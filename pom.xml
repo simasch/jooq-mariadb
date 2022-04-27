@@ -15,7 +15,7 @@
 
     <properties>
         <java.version>17</java.version>
-        <jooq.version>3.16.4</jooq.version>
+        <jooq.version>3.16.6</jooq.version>
         <testcontainers.version>1.16.3</testcontainers.version>
 
         <db.username>sakila</db.username>
@@ -157,6 +157,10 @@
                         <target>
                             <packageName>ch.martinelli.sakila</packageName>
                         </target>
+                        <generate>
+                            <pojos>true</pojos>
+                            <daos>true</daos>
+                        </generate>
                     </generator>
                 </configuration>
             </plugin>
