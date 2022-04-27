@@ -159,6 +159,7 @@
                         </target>
                         <generate>
                             <pojos>true</pojos>
+                            <pojosToString>false</pojosToString>
                             <daos>true</daos>
                         </generate>
                     </generator>
