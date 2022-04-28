@@ -103,7 +103,7 @@ class CrudTest {
     }
 
     @Test
-    void fina_all_films_with_view() {
+    void find_all_films_with_view() {
         Result<FilmListRecord> films = dsl
                 .selectFrom(FILM_LIST)
                 .fetch();
