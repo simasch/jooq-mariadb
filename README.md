@@ -14,3 +14,8 @@ Simply run:
 
     mvn test
 
+## Webinar
+
+Watch the webinar [Type-Safe SQL with jOOQ on SkySQL](https://go.mariadb.com/22Q3-WBN-GLBL-DBaaS-Type-safe-SQL-jOOQ-on-SkySQL-2022-04-28_Registration-LP.html).
+
+Also check [this repository](Watch the webinar [Type-Safe SQL with jOOQ on SkySQL](https://go.mariadb.com/22Q3-WBN-GLBL-DBaaS-Type-safe-SQL-jOOQ-on-SkySQL-2022-04-28_Registration-LP.html).) with minimal configuration using Spring Boot and jOOQ to connect to a running MariaDB database.
