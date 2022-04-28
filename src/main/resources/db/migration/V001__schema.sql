@@ -488,7 +488,7 @@ proc: BEGIN
     AND COUNT(customer_id) > min_monthly_purchases;
 
     /* Populate OUT parameter with count of found customers */
-    SELECT COUNT(*) FROM tmpCustomer INTO count_rewardees;
+    SELECT COUNT(*) INTO count_rewardees FROM tmpCustomer;
 
     /*
         Output ALL customer information of matching rewardees.
