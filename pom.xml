@@ -85,6 +85,7 @@
                                         .withUsername("${db.username}")
                                         .withDatabaseName("${db.database}")
                                         .withPassword("${db.password}")
+                                        .withTmpFs(["/var/lib/mysql": "rw"])
                                 db.start()
                                 project.properties.setProperty('db.url', db.getJdbcUrl())
                             </source>
